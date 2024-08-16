@@ -1,0 +1,171 @@
+$temporada: verano;
+
+// @if $temporada == verano {
+//   background: url("../images/banner.jpg");
+//   background-size: cover;
+
+//   h4 {
+//     color: orangered;
+//     font-size: 80px;
+//     position: relative;
+
+//     span {
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       opacity: 0.5;
+//       display: block;
+//       width: 400px;
+//       height: 400px;
+//       background-color: yellow;
+//       border-radius: 100%;
+//       filter: blur(10px);
+//     }
+//   }
+// } @else if $temporada == invierno {
+//   background: url("../images/invierno.jpg");
+//   background-size: cover;
+//   h4 {
+//     color: darkblue;
+//     font-size: 80px;
+//   }
+// } @else {
+//   background-color: #191919;
+// }
+
+//bucles
+
+// @for $variable from 1 to 6 {
+//   .p-#{$variable} {
+//     padding: $variable * 10px;
+//   }
+// }
+// @for $variable from 1 through 12 {
+//   .p-#{$variable} {
+//     padding: $variable * 10px;
+//   }
+
+//   .m-#{$variable} {
+//     margin: $variable * 10px;
+//   }
+
+//   .col-#{$variable} {
+//     width: 100% / $variable;
+//   }
+// }
+
+$colores: (
+  primary: rgb(25, 25, 142),
+  secondary: rgb(139, 16, 139),
+  danger: rgb(199, 15, 15),
+  warn: rgb(241, 76, 16),
+  dark: #000000,
+  light: #ffffff,
+  info: rgb(162, 162, 162),
+  success: rgb(19, 131, 19)
+);
+
+.cajita {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  max-height: 100%;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  a {
+    width: 300px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 24px;
+    padding: 10px;
+  }
+}
+
+@each $key, $valor in $colores {
+  .btn-#{$key} {
+    background: $valor;
+    border-radius: 10px;
+    transition: 0.5s;
+    color: #fff;
+
+    @if $key == light {
+      color: #000;
+      border: 1px solid darken($valor, 20%);
+      &:hover {
+        background-color: darken($valor, 25%);
+      }
+    } @else if $key == info {
+      color: #000;
+      border: 1px solid lighten($valor, 20%);
+      &:hover {
+        background-color: darken($valor, 30%);
+        color: #fff;
+      }
+    } @else if $key == dark {
+      color: #fff;
+      border: 1px solid lighten($valor, 20%);
+      &:hover {
+        background-color: lighten($valor, 20%);
+      }
+    } @else {
+      border: 1px solid lighten($valor, 20%);
+      &:hover {
+        background-color: darken($valor, 15%);
+      }
+    }
+  }
+}
+
+// .box-extend {
+//   @extend .tarjeta;
+//   justify-content: center;
+//   min-height: 100vh;
+//   max-height: 100%;
+//   background: #191919;
+// }
+
+//mixin sin parametros
+@mixin display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+//mixin con parametros
+@mixin flex($direction, $align, $justify, $gap) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: $align;
+  justify-content: $justify;
+  gap: $gap;
+}
+
+@mixin imagenes($w, $h, $obj) {
+  width: $w;
+  height: $h;
+  object-fit: $obj;
+}
+
+@mixin grid($col, $row, $gap) {
+  display: grid;
+  grid-template-columns: repeat($col, 1fr);
+  grid-template-rows: repeat($row, 1fr);
+  gap: $gap;
+}
+
+.box-extend {
+  // @include display;
+  @include flex(center,row,10px,space-between);
+}
+
+.pepe {
+  // @include flex(column, center, space-between, 10px);
+  @include grid(4, 3, 10px);
+}
+
+.imagen {
+  @include imagenes(100%, 300px, cover);
+  border-radius: 10px;
+}
